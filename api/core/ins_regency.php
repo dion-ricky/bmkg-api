@@ -2,12 +2,12 @@
 include_once '../database/database.php';
 
 $database = new Database();
-$dbcon = $database->getConnection();
+$dbconn = $database->getConnection();
 
 $province = $_GET['prov'];
 
 $url = 'http://dataonline.bmkg.go.id/mcstation_metadata/get_regency';
-//idrefprovince=&idrefregency=&type=
+
 $data = array('idrefprovince' => $province);
 
 $options = array(
@@ -48,6 +48,6 @@ for ($x=0; $x<count($regres); $x++) {
 }
 
 $query = "INSERT INTO regency(idregency, idprovince, name) VALUES ".$values;
-$stmt = $dbcon->prepare($query);
+$stmt = $dbconn->prepare($query);
 $stmt->execute();
 ?>
