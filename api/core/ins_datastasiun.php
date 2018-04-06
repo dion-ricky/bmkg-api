@@ -2,12 +2,12 @@
 include_once '../database/database.php';
 
 $database = new Database();
-$dbcon = $database->getConnection();
+$dbconn = $database->getConnection();
 $province = $_GET['prov'];
 $regen = $_GET['regency'];
 
 $url = 'http://dataonline.bmkg.go.id/mcstation_metadata/get_data';
-//idrefprovince=&idrefregency=&type=
+
 $data = array('idrefprovince' => $province, 'idrefregency' => $regen, 'type' => '');
 
 $options = array(
@@ -31,16 +31,9 @@ if (substr($result, 16, 17) == 0) {
 $result = substr($result, 27, -2);
 $res = preg_split('/\],\[/',$result);
 
-//echo $result;
-//print_r($res);
-//die();
-
 for ($x=0; $x<count($res); $x++) {
 	preg_match('/"([\d\w\\\\*]+)","([\(\)\'*\-*\w\s\/*\\\\*\.*,*\+`\;\d]+)","([\w_*]+)","([\w\s]+)","([\w\s\.*]+)","([\w\s\.*]+)","(-*[\d\.*]+)","(-*[\d\.*]+)","*([-\d]+)"*,"*([\w\d\.*]+)"*,"*([\w\d\.*]+)"*,"*([\w\d\.*]+)"*,"*([\+*\w\d\.*:*]+)"*/', $res[$x], $regres[$x]);
 }
-
-//print_r($regres);
-//die();
 
 $values = "";
 for ($x=0; $x<count($regres); $x++) {
@@ -69,6 +62,6 @@ for ($x=0; $x<count($regres); $x++) {
 }
 
 $query = "INSERT INTO station_data(station_no, station_name, type, region, province, regency, latitude, longitude, altitude, soil, exposure, land_use, timezone) VALUES ".$values;
-$stmt = $dbcon->prepare($query);
+$stmt = $dbconn->prepare($query);
 $stmt->execute();
 ?>

@@ -5,17 +5,18 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../system/date_system.php';
 include_once '../system/trim.php';
 include_once '../system/temperature_conversion.php';
+include_once '../database/database.php';
 
-//Connect to database
-$dbcon = pg_pconnect("host=localhost user=postgres password=postgres dbname=api_test");
+// create new database object
+$database = new Database();
+$dbconn = $database->getConnection();
 
+// define error array
 $error = array(
-  "error" => array(
-
-  )
+  "error" => array()
 );
 
-//Catch GET argument
+// catch GET argument
 $areaid = isset($_GET['id']) ? $_GET['id'] : array_push($error['error'], "Please specify area id!");
 $displayname = isset($_GET['name']) ? $_GET['name'] : "";
 $temperature_unit = isset($_GET['unit']) ? $_GET['unit'] : "c";
@@ -28,28 +29,34 @@ switch($temperature_unit){
   case "c":
     break;
   default:
+    // insert new array value if temperature unit is not recognized
     array_push($error['error'], "Temperature unit is not recognized!");
 }
 $masa = isset($_GET['masa']) ? preg_split("/,/", $_GET['masa']) : array("1", "2", "3", "4");
 
-
-
-$q = pg_query($dbcon, "SELECT * FROM areas WHERE areaid=".$areaid);
-$arr = pg_fetch_all($q);
-if(pg_num_rows($q)>0){
+// querying data
+$q = "SELECT * FROM areas WHERE areaid=".$areaid;
+$query = $dbconn->prepare($q);
+$query->execute();
+$arr = $query->fetchAll();
+// check if areaid is valid
+if(count($arr)>0){
   $displayname = $arr[0]['displayname'];
 } else {
   array_push($error['error'], "Area id not found!");
 }
 
+// print error array if any value exists
 if(count($error['error'])>0){
   echo json_encode($error);
   die();
 }
 
+// define url for http POST request
 $url = 'http://web.meteo.bmkg.go.id/city-pages/';
 $data = array('search' => $displayname, 'areaid' => $areaid);
 
+// will be sent together to the defined url
 $options = array(
     'http' => array(
         'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -59,22 +66,31 @@ $options = array(
 );
 $context  = stream_context_create($options);
 $result = file_get_contents($url, false, $context);
+// push new array value if an error occur
 if ($result === FALSE) {
   array_push($error['error'],"Error fetching data!");
   echo json_encode($error);
   die();
 }
 
+// regex pattern for preg_match
 $re = '/\<div class\="[\w\s]+"\>\<\w+\>([\s\w\,]+)\<[\/\w]+\>\<[\/\w]+\>\<[\w\s\="]+\>\<\w+\>[\w\s\,]+\<[\/\w]+\>\<[\/\w]+\>\<[\w\s\="]+\>\<\w+\>[\w\s\,]+\<[\/\w]+\>\<[\/\w]+\>\s+\<[\/\w]+\>\s+\<[\w\s\="]+\>\<[\/\w]+\>\s+\<[\w\s\="]+\>\s+\<[\w\s\="]+\>\<[\w\s\="]+\>\<[\w]+\>([\w\s]+)\<[\/\w]+\>\<[\w\s\="\/\:\.\(\)\;]+\>\<[\w\s\="]+\>([\w\s]+)\<[\/\w]+\>\<[\w\s\="]+\>([\s\w\.]+)\<\w+\>°*\w\<[\/\w]+\>\<[\/\w]+\>\<[\w\s\="]+\>\<[\w\s\="]+\>([\s\w\/\.]+)\<[\/\w]+\>\<[\w\/]+\>\<[\w\s\="]+\>([\w\s\.]+)\<[\w\s\="\-\:\/\.\(\)\;]+\>\<[\/\w]+\>\s*\<[\w\/]+\>\<[\w\s\="]+\>([\s\w\%\.]+)\<[\w\s\="\-\:\/\.\(\)\;]+\>\s*\<[\/\w]+\>\<[\/\w]+\>\<[\/\w]+\>\<[\s\w\d\="]+\>\<[\w]+\>([\w\s]+)\<[\/\w]+\>\<[\w\s\="\/\:\.\(\)\;]+\>\<[\w\s\="]+\>([\s\w]+)\<[\/\w]+\>\<[\w\s\="]+\>([\d\s\.]+)\<\w+\>°*\w+\<[\/\w]+\>\<[\/\w]+\>\<[\w\s\="]+\>\<[\w\s\="]+\>([\s\w\/\.]+)\<[\/\w]+\>\<[\w\/]+\>\<[\w\s\="]+\>([\w\s\.]+)\<[\w\s\="\-\:\/\.\(\)\;]+\>\<[\/\w]+\>\s+\<[\w\/]+\>\<[\w\s\="]+\>([\w\s\%\.]+)\<[\w\s\="\-\:\/\.\(\)\;]+\>\s*\<[\/\w]+\>\<[\/\w]+\>\<[\/\w]+\>\<[\s\w\d\="]+\>\<[\w]+\>([\w\s]+)\<[\/\w]+\>\<[\w\s\="\/\:\.\(\)\;]+\>\<[\w\s\="]+\>([\s\w]+)\<[\/\w]+\>\<[\w\s\="]+\>([\d\s\.]+)\<\w+\>°*\w+\<[\/\w]+\>\<[\/\w]+\>\<[\w\s\="]+\>\<[\w\s\="]+\>([\s\w\/\.]+)\<[\/\w]+\>\<[\w\/]+\>\<[\w\s\="]+\>([\w\s\.]+)\<[\w\s\="\-\:\/\.\(\)\;]+\>\<[\/\w]+\>\s+\<[\w\/]+\>\<[\w\s\="]+\>([\w\s\%\.]+)\<[\w\s\="\-\:\/\.\(\)\;]+\\>\s*\<[\/\w]+\>\<[\/\w]+\>\<[\/\w]+\>\<[\s\w\d\="]+\>\<[\w]+\>([\w\s]+)\<[\/\w]+\>\<[\w\s\="\/\:\.\(\)\;]+\>\<[\w\s\="]+\>([\s\w]+)\<[\/\w]+\>\<[\w\s\="]+\>([\d\s\.]+)\<\w+\>°*\w+\<[\/\w]+\>\<[\/\w]+\>\<[\w\s\="]+\>\<[\w\s\="]+\>([\s\w\/\.]+)\<[\/\w]+\>\<[\w\/]+\>\<[\w\s\="]+\>([\w\s\.]+)\<[\w\s\="\-\:\/\.\(\)\;]+\>\<[\/\w]+\>\s+\<[\w\/]+\>\<[\w\s\="]+\>([\w\s\%\.]+)\<[\w\s\="\-\:\/\.\(\)\;]+\>\s*\<[\/\w]+\>\<[\/\w]+\>\<[\/\w]+\>\<[\/\w]+\>\<[\w\s\="]+\>\<[\w\s\="]+\>\<[\w]+\>/';
 
+// '
+
+// the comment above is actually not necessary!
+
+// regex matching with pattern
 preg_match($re, $result, $regres);
 
+// if array from regex match is empty then print error
 if(count($regres)==0){
   array_push($error['error'], "Regex match error!");
   echo json_encode($error);
   die();
 }
 
+// structuring fetched data into array
 $print_json=array(
   "result" => array(
     "tanggal" => expandDate($regres[1]),
@@ -84,7 +100,9 @@ $print_json=array(
   )
 );
 
-for($i=0; $i<count($masa); $i++){
+// structuring data
+$count = count($masa);
+for($i=0; $i<$count; $i++){
   switch($masa[$i]){
     case "1":
       $start = 3;
@@ -117,5 +135,6 @@ for($i=0; $i<count($masa); $i++){
   $print_json[$text] = $data;
 }
 
+// printing json from array
 echo json_encode($print_json);
 ?>
