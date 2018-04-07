@@ -3,6 +3,7 @@ include_once '../database/database.php';
 
 $db = new Database();
 $dbconn = $db->getConnection();
+$host = getenv('HOST');
 
 $abjad = array(
   1 => 'a',
@@ -36,7 +37,7 @@ $abjad = array(
 for($a=1; $a<27;$a++){
   // INSERT INTO areas
   file_get_contents('http://'.$host.'/api/core/ins_areaid.php?term='.$abjad[$a]);
-  sleep(1);
+  //sleep(1);
 }
 
 /*
@@ -45,7 +46,6 @@ for($a=1; $a<34; $a++){
 }
 
 for($a=1; $a<34; $a++){
-  $host = getenv('HOST');
   $province = $a;
   $qry = $dbconn->prepare("SELECT * FROM regency WHERE idprovince='".$province."'");
   $qry->execute();
