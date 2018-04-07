@@ -8,6 +8,7 @@ $province = $_GET['prov'];
 
 $url = 'http://dataonline.bmkg.go.id/mcstation_metadata/get_regency';
 
+// set content data to be sent over HTTP POST request
 $data = array('idrefprovince' => $province);
 
 $options = array(
@@ -18,13 +19,16 @@ $options = array(
     )
 );
 
+// send data and fetch the response
 $context  = stream_context_create($options);
 $result = file_get_contents($url, false, $context);
 if ($result === FALSE) {
   die("Error fetching data!");
 }
 
+// remove unnecessary data
 $result = substr($result, 83, -21);
+// split response data
 $res = preg_split('/\",\"/',$result);
 
 for ($x=0; $x<count($res); $x++) {
@@ -32,9 +36,10 @@ for ($x=0; $x<count($res); $x++) {
 }
 
 $values = "";
-for ($x=0; $x<count($regres); $x++) {
+$count = count($regres);
+for ($x=0; $x<$count; $x++) {
 
-	if($x == count($regres)-1) {
+	if($x == $count-1) {
 		$comma = "";
 	} else {
 		$comma = ", ";
