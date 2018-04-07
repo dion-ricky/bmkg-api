@@ -40,6 +40,10 @@ for($a=1; $a<27;$a++){
 }
 
 for($a=1; $a<34; $a++){
+  file_get_contents('http://'.$host.'/api/core/ins_regency.php?prov='.$a);
+}
+
+for($a=1; $a<34; $a++){
   $host = getenv('HOST');
   $province = $a;
   $qry = $dbconn->prepare("SELECT * FROM regency WHERE idprovince='".$province."'");
