@@ -36,9 +36,10 @@ $abjad = array(
 for($a=1; $a<27;$a++){
   // INSERT INTO areas
   file_get_contents('http://'.$host.'/api/core/ins_areaid.php?term='.$abjad[$a]);
-  //sleep(1);
+  sleep(1);
 }
 
+/*
 for($a=1; $a<34; $a++){
   file_get_contents('http://'.$host.'/api/core/ins_regency.php?prov='.$a);
 }
@@ -61,4 +62,5 @@ for($a=1; $a<34; $a++){
   }
   //sleep(1);
 }
+*/
 ?>
