@@ -36,9 +36,10 @@ for ($x=0; $x<count($res); $x++) {
 }
 
 $values = "";
-for ($x=0; $x<count($regres); $x++) {
+$count = count($regres);
+for ($x=0; $x<$count; $x++) {
 
-	if($x == count($regres)-1) {
+	if($x == $count-1) {
 		$comma = "";
 	} else {
 		$comma = ", ";
