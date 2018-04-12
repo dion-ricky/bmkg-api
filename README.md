@@ -11,6 +11,9 @@ This API use PHP to serve HTTP request and reply response in JSON. However, we h
 
 Note:
 `host` -> this might be changed during development period without making change in this README file.
+
 \* required
+
 ^ default
+
 Certain time available are (pagi/morning = 1, siang/afternoon = 2, malam/night = 3, dini hari/dawn = 4). The order is not important, but make sure to delimit them with commas. This parameter is optional, default is 1,2,3,4.
