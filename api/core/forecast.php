@@ -132,7 +132,7 @@ for($i=0; $i<$count; $i++){
     "wind_dir" => trim($regres[$start+3]),
     "kelembapan" => trim($regres[$start+4])
   );
-  $print_json[$text] = $data;
+  $print_json['result'][$text] = $data;
 }
 
 // printing json from array
