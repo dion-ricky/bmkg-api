@@ -121,22 +121,18 @@ $print_json=array(
   )
 );
 
+$print_json=array(
+  "result" => array(
+    "areaid" => $areaid,
+    "area_name" => advTrim(trim($displayname)),
+    "temperature_unit" => strtoupper($temperature_unit)
+  )
+);
+
 $count = count($masa);
 $idxCount = count($idx);
 
 for($a=0; $a<$idxCount; $a++){
-<<<<<<< HEAD
-  // structuring fetched data into array
-  $print_json=array(
-    "result" => array(
-      "areaid" => $areaid,
-      "area_name" => advTrim(trim($displayname)),
-      "temperature_unit" => strtoupper($temperature_unit)
-    )
-  );
-
-=======
->>>>>>> 3a13b18157ab723902232c21881f047855bf0f51
   // structuring data
   for($i=0; $i<$count; $i++){
     switch($masa[$i]){
