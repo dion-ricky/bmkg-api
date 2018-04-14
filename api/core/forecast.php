@@ -121,14 +121,6 @@ $print_json=array(
   )
 );
 
-$print_json=array(
-  "result" => array(
-    "areaid" => $areaid,
-    "area_name" => advTrim(trim($displayname)),
-    "temperature_unit" => strtoupper($temperature_unit)
-  )
-);
-
 $count = count($masa);
 $idxCount = count($idx);
 
