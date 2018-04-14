@@ -160,6 +160,8 @@ for($a=0; $a<$idxCount; $a++){
     );
     $print_json['result'][expandDate($regres[$idx[$a]+1])][$text] = $data;
   }
+  print_r($print_json);
+  die();
 }
 
 echo(expandDate("Sabtu, 14 Apr"));
