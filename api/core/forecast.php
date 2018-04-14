@@ -111,6 +111,8 @@ for($i=0; $i<$dateCount; $i++){
   }
 }
 
+die(count($idx));
+
 $count = count($masa);
 $idxCount = count($idx);
 
