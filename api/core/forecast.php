@@ -92,6 +92,7 @@ if(count($regres)==0){
   die();
 }
 
+$idx = array();
 $dateCount = count($date);
 for($i=0; $i<$dateCount; $i++){
   switch ($date[$i]){
