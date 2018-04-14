@@ -93,51 +93,70 @@ if(count($regres)==0){
 }
 
 $dateCount = count($date);
-$count = count($masa);
-
-for ($a=0; $a<$dateCount; $a++){
-// structuring fetched data into array
-$print_json=array(
-  "result" => array(
-    "areaid" => $areaid,
-    "area_name" => advTrim(trim($displayname)),
-    "temperature_unit" => $temperature_unit,
-  )
-);
-
-// structuring data
-for($i=0; $i<$count; $i++){
-  switch($masa[$i]){
-    case "1":
-      $start = (24*$i)+5;
-      $text = "Pagi";
+for($i=0; $i<$dateCount; $i++){
+  switch ($date[$i+1]){
+    case normalDate($regres[1]):
+      array_push($idx, 0);
       break;
-    case "2":
-      $start = (24*$i)+11;
-      $text = "Siang";
+    case normalDate($regres[2]):
+      array_push($idx, 1);
       break;
-    case "3":
-      $start = (24*$i)+17;
-      $text = "Malam";
-      break;
-    case "4":
-      $start = (24*$i)+23;
-      $text = "Dini Hari";
+    case normalDaate($regres[3]):
+      array_push($idx, 2);
       break;
     default:
-      array_push($error['error'], "Masa tidak valid!");
+      array_push($error['error'], "Date not valid!");
       echo json_encode($error);
       die();
   }
-  $data = array(
-    "description" => trim($regres[$start]),
-    "suhu" => temperatureConvert($temperature_unit, trim($regres[$start+1])),
-    "wind_speed" => dblSpace(trim($regres[$start+2])),
-    "wind_dir" => trim($regres[$start+3]),
-    "kelembapan" => trim($regres[$start+4])
-  );
-  $print_json['result'][expandDate($regres[$a+1])][$text] = $data;
 }
+
+$count = count($masa);
+$idxCount = count($idx);
+
+for($a=0; $a<$idxCount; $a++){
+  // structuring fetched data into array
+  $print_json=array(
+    "result" => array(
+      "areaid" => $areaid,
+      "area_name" => advTrim(trim($displayname)),
+      "temperature_unit" => $temperature_unit,
+    )
+  );
+
+  // structuring data
+  for($i=0; $i<$count; $i++){
+    switch($masa[$i]){
+      case "1":
+        $start = (24*$idx[$a])+5;
+        $text = "Pagi";
+        break;
+      case "2":
+        $start = (24*$idx[$a])+11;
+        $text = "Siang";
+        break;
+      case "3":
+        $start = (24*$idx[$a])+17;
+        $text = "Malam";
+        break;
+      case "4":
+        $start = (24*$idx[$a])+23;
+        $text = "Dini Hari";
+        break;
+      default:
+        array_push($error['error'], "Masa tidak valid!");
+        echo json_encode($error);
+        die();
+    }
+    $data = array(
+      "description" => trim($regres[$start]),
+      "suhu" => temperatureConvert($temperature_unit, trim($regres[$start+1])),
+      "wind_speed" => dblSpace(trim($regres[$start+2])),
+      "wind_dir" => trim($regres[$start+3]),
+      "kelembapan" => trim($regres[$start+4])
+    );
+    $print_json['result'][expandDate($regres[$idx[$a]+1])][$text] = $data;
+  }
 }
 // printing json from array
 echo json_encode($print_json);
