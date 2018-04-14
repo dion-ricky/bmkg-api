@@ -55,32 +55,32 @@ function normalDate($str){
   preg_match("/[\w,]+\s*(\d+)\s*(\w+)/", $str, $regstr);
   switch($regstr[2]) {
     case "Jan":
-      $bulan = "1";
+      $bulan = "01";
       break;
     case "Feb":
-      $bulan = "2";
+      $bulan = "02";
       break;
     case "Mar":
-      $bulan = "3";
+      $bulan = "03";
       break;
     case "Apr":
-      $bulan = "4";
+      $bulan = "04";
       break;
     case "Mei":
-      $bulan = "5";
+      $bulan = "05";
       break;
     case "Jun":
-      $bulan = "6";
+      $bulan = "06";
       break;
     case "Jul":
-      $bulan = "7";
+      $bulan = "07";
       break;
     case "Agu":
     case "Ags":
-      $bulan = "8";
+      $bulan = "08";
       break;
     case "Sep":
-      $bulan = "9";
+      $bulan = "09";
       break;
     case "Okt":
       $bulan = "10";
