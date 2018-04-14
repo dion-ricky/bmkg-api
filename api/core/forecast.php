@@ -112,21 +112,19 @@ for($i=0; $i<$dateCount; $i++){
   }
 }
 
+// structuring fetched data into array
+$print_json=array(
+  "result" => array(
+    "areaid" => $areaid,
+    "area_name" => advTrim(trim($displayname)),
+    "temperature_unit" => $temperature_unit
+  )
+);
+
 $count = count($masa);
 $idxCount = count($idx);
 
 for($a=0; $a<$idxCount; $a++){
-  // structuring fetched data into array
-  $print_json=array(
-    "result" => array(
-      "areaid" => $areaid,
-      "area_name" => advTrim(trim($displayname)),
-      "temperature_unit" => $temperature_unit
-    )
-  );
-  echo $a;
-  echo $idx[$a];
-  echo $regres[$idx[$a]+1];
   // structuring data
   for($i=0; $i<$count; $i++){
     switch($masa[$i]){
@@ -160,12 +158,7 @@ for($a=0; $a<$idxCount; $a++){
     );
     $print_json['result'][expandDate($regres[$idx[$a]+1])][$text] = $data;
   }
-  print_r($print_json);
-  die();
 }
-
-echo(expandDate("Sabtu, 14 Apr"));
-print_r($print_json);
 // printing json from array
 echo json_encode($print_json);
 ?>
