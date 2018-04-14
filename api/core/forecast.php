@@ -112,10 +112,6 @@ for($i=0; $i<$dateCount; $i++){
   }
 }
 
-print_r ($idx);
-echo count($idx);
-die();
-
 $count = count($masa);
 $idxCount = count($idx);
 
@@ -125,10 +121,12 @@ for($a=0; $a<$idxCount; $a++){
     "result" => array(
       "areaid" => $areaid,
       "area_name" => advTrim(trim($displayname)),
-      "temperature_unit" => $temperature_unit,
+      "temperature_unit" => $temperature_unit
     )
   );
-
+  echo $a;
+  echo $idx[$a];
+  echo $regres[$idx[$a]+1];
   // structuring data
   for($i=0; $i<$count; $i++){
     switch($masa[$i]){
