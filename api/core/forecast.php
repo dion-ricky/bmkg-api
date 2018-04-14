@@ -151,7 +151,6 @@ for($a=0; $a<$idxCount; $a++){
         echo json_encode($error);
         die();
     }
-    echo $regres[$idx[$a]+1];
     $data = array(
       "description" => trim($regres[$start]),
       "suhu" => temperatureConvert($temperature_unit, trim($regres[$start+1])),
@@ -159,11 +158,12 @@ for($a=0; $a<$idxCount; $a++){
       "wind_dir" => trim($regres[$start+3]),
       "kelembapan" => trim($regres[$start+4])
     );
-    echo $text;
-    print_r($data);
     $print_json['result'][expandDate($regres[$idx[$a]+1])][$text] = $data;
   }
 }
+
+echo(expandDate("Sabtu, 14 Apr"));
+print_r($print_json);
 // printing json from array
 echo json_encode($print_json);
 ?>
