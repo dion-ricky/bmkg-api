@@ -94,7 +94,7 @@ if(count($regres)==0){
 
 $dateCount = count($date);
 for($i=0; $i<$dateCount; $i++){
-  switch ($date[$i+1]){
+  switch ($date[$i]){
     case normalDate($regres[1]):
       array_push($idx, 0);
       break;
@@ -110,8 +110,6 @@ for($i=0; $i<$dateCount; $i++){
       die();
   }
 }
-
-die(count($idx));
 
 $count = count($masa);
 $idxCount = count($idx);
