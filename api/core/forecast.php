@@ -101,7 +101,7 @@ for($i=0; $i<$dateCount; $i++){
     case normalDate($regres[2]):
       array_push($idx, 1);
       break;
-    case normalDaate($regres[3]):
+    case normalDate($regres[3]):
       array_push($idx, 2);
       break;
     default:
