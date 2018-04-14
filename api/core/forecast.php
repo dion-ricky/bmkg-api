@@ -112,6 +112,10 @@ for($i=0; $i<$dateCount; $i++){
   }
 }
 
+print_r ($idx);
+echo count($idx);
+die();
+
 $count = count($masa);
 $idxCount = count($idx);
 
