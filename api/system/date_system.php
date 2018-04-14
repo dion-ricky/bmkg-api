@@ -1,4 +1,10 @@
 <?php
+date_default_timezone_set("Asia/Jakarta");
+
+function today(){
+  return date("d-m-Y");
+}
+
 function expandDate($str){
   $str = preg_split("/[\s,]+/", $str);
   switch($str[2]){
