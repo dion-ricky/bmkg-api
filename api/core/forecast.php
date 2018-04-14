@@ -121,7 +121,7 @@ for($a=0; $a<$idxCount; $a++){
     "result" => array(
       "areaid" => $areaid,
       "area_name" => advTrim(trim($displayname)),
-      "temperature_unit" => $temperature_unit,
+      "temperature_unit" => strtoupper($temperature_unit)
     )
   );
 
