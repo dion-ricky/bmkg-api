@@ -1,7 +1,6 @@
 # Indonesian Agency for Meteorology, Climatology and Geophysics (BMKG) Weather API
 
 > This API is experimental!
-**`Do not use for commercial purpose!`**
 
 This API use PHP to serve HTTP request and reply response in JSON. However, we have a database to store areas data but not meant to save weather forecast value(s).
 
