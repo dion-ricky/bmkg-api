@@ -28,7 +28,7 @@
         <a class="nav-item nav-link" href="./example"><span class="fa fa-lightbulb-o"></span>&nbsp; Examples</a>
         <a class="nav-item nav-link" href="./docs"><span class="fa fa-file-text"></span>&nbsp; Documentation</a>
         <a class="nav-item nav-link" href="./search"><span class="fa fa-search"></span>&nbsp; Search</a>
-        <a class="nav-item nav-link" href="./license"><span class="fa fa-balance-scale"></span>&nbsp; License</a>
+        <a class="nav-item nav-link" href="./osl"><span class="fa fa-balance-scale"></span>&nbsp; License</a>
       </div>
     </div>
   </nav>
