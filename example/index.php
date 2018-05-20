@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="favicon.ico">
+  <link rel="icon" href="../favicon.ico">
 
   <title>BMKG API by Ignite Project</title>
 
@@ -84,7 +84,7 @@
 
     </div>
   </div>
-  
+
   <script src="../js/vendor/popper.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
 
