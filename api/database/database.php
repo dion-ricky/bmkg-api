@@ -9,9 +9,9 @@ class Database{
 	private $port;
 
 	public function __construct(){
-		$this->database = parse_url(getenv('DATABASE_URL'));
+		//$this->database = parse_url(getenv('DATABASE_URL'));
 		//$this->database = parse_url("postgres://csemebliiqxwjb:7d14b5bfb169022b730f073d3a6f760c0154c145d61b186dcfc57d1f327c8e64@ec2-54-243-54-6.compute-1.amazonaws.com:5432/dludt50ava90k");
-		//$this->database = parse_url('http://postgres:postgres@127.0.0.1:5432/api_test');
+		$this->database = parse_url('http://postgres:postgres@127.0.0.1:5432/api_test');
 		// specify your own database credentials
 		$this->host = $this->database['host'];
 		$this->db_name = ltrim($this->database['path'], '/');
