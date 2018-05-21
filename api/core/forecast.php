@@ -160,5 +160,5 @@ for($a=0; $a<$idxCount; $a++){
   }
 }
 // printing json from array
-echo json_encode($print_json);
+echo json_encode($print_json, JSON_PRETTY_PRINT);
 ?>
