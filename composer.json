@@ -1,5 +1,10 @@
 {
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^6.3",
+    "monolog/monolog": "^1.23",
+    "google/apiclient": "^2.0"
   }
 }
