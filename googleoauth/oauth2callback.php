@@ -5,7 +5,7 @@ session_start();
 
 $client = new Google_Client();
 $client->setAuthConfigFile('client_secrets.json');
-$client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/bmkg_/googleoauth/oauth2callback.php');
+$client->setRedirectUri('HttpRequest://' . $_SERVER['HTTP_HOST'] . '/googleoauth/oauth2callback.php');
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 
 if (! isset($_GET['code'])) {
@@ -14,7 +14,7 @@ if (! isset($_GET['code'])) {
 } else {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
-  $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/bmkg_/googleoauth/';
+  $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'] . '/googleoauth/';
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }
 ?>
