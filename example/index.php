@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="favicon.ico">
+  <link rel="icon" href="../favicon.ico">
 
   <title>BMKG API by Ignite Project</title>
 
@@ -43,10 +43,29 @@
             <div class="card">
               <div class="card-header">Pagi</div>
               <div class="card-body">
-                  <h5 class="card-title">Cerah</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <img src="http://web.meteo.bmkg.go.id//media/data/bmkg/icons/forecast/P1.png" style="display: block; margin-left: auto; margin-right: auto;" width="100" height="100">
+                <h2 class="card-title text-center mt-1">22 &deg;C</h2>
+                <div class="row text-center mb-3">
+                  <div class="col">
+                    5 Km/jam
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div class="col">
+                    <img src="http://web.meteo.bmkg.go.id//media/data/bmkg/icons/forecast/wind-ENE.png" width="20" height="20">
+                  </div>
+                  <div class="col">
+                    ENE
+                  </div>
+                  <div class="col">
+                    <img src="http://web.meteo.bmkg.go.id//media/data/bmkg/icons/forecast/humidity.png" width="20" height="20">
+                  </div>
+                  <div class="col">
+                    77%
+                  </div>
+                </div>
               </div>
+              <div class="card-footer text-muted text-center">Cerah &bull; 22 &deg;C</div>
             </div>
           </div>
           <div class="col mt-3">
@@ -84,7 +103,7 @@
 
     </div>
   </div>
-  
+
   <script src="../js/vendor/popper.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
 
