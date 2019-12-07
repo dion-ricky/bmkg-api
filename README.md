@@ -1,3 +1,4 @@
+# !! ABANDONED PROJECT !!
 # Indonesian Agency for Meteorology, Climatology and Geophysics (BMKG) Weather API
 
 > This API is experimental!
